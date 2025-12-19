@@ -2,6 +2,28 @@
 
 This guide focuses on the Inertia/React side of Stellaris, showing key functions with small code excerpts and how they talk to backend routes or other components.
 
+## Frontend data flow (visual)
+```mermaid
+flowchart LR
+  User["User actions"]
+  Home["StellarisHome\n(search + suggestions)"]
+  Search["GET star.search\nStarController@search"]
+  Props["Props back to page:\nsearchedStar, sidebarList, userNotes, isNewDiscovery"]
+  Scene["SpaceScene\n3D star + select"]
+  Details["StarDetails\nCaptain's Log form"]
+  Save["POST chapter.save\nStarController@store"]
+  Delete["DELETE chapter.delete\nStarController@destroy"]
+  Observatory["Observatory\nfavorites list"]
+
+  User --> Home
+  Home -->|submit search| Search --> Props --> Home
+  Home --> Scene -->|select star| Details
+  Details -->|save note| Save --> Props
+  Details -->|delete note| Delete --> Props
+  Observatory -->|purge favorite| Delete
+```
+
+
 ## Entry & Page Resolution
 **File:** `resources/js/app.jsx`
 ```jsx
