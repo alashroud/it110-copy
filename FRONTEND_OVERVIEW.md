@@ -20,8 +20,11 @@ flowchart LR
   Home --> Scene -->|select star| Details
   Details -->|save note| Save --> Props
   Details -->|delete note| Delete --> Props
+  Props --> Home
   Observatory -->|purge favorite| Delete
 ```
+
+`POST chapter.save` / `DELETE chapter.delete` are the Captain's Log note endpoints defined in `routes/web.php`; `GET star.search` powers the search box.
 
 
 ## Entry & Page Resolution
